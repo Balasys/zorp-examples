@@ -143,17 +143,14 @@ class SmtpProxyOneSideSsl(SmtpProxy):
 class HttpsProxyKeybridge(HttpProxy):
     key_generator=X509KeyBridge(
         key_file="/etc/zorp/keybridge/key.pem",
-        key_passphrase="passphrase",
         cache_directory="/var/lib/zorp/keybridge-cache",
         trusted_ca_files=(
             "/etc/zorp/keybridge/ZorpGPL_TrustedCA.cert.pem",
             "/etc/zorp/keybridge/ZorpGPL_TrustedCA.key.pem",
-            "passphrase"
         ),
         untrusted_ca_files=(
             "/etc/zorp/keybridge/ZorpGPL_UnTrustedCA.cert.pem",
             "/etc/zorp/keybridge/ZorpGPL_UnTrustedCA.key.pem",
-            "passphrase"
         )
     )
 
