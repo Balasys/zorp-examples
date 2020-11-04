@@ -130,15 +130,15 @@ class HttpProxyHeaderReplace(HttpProxy):
 
 
 class HttpProxyUrlFilter(HttpProxy):
-        def config(self):
-                HttpProxy.config(self)
-                self.request["GET"] = (HTTP_REQ_POLICY, self.filterURL)
+    def config(self):
+        HttpProxy.config(self)
+        self.request["GET"] = (HTTP_REQ_POLICY, self.filterURL)
 
-        def filterURL(self, method, url, version):
-                if (url == "http://server_disallowed.zorp/"):
-                        self.error_info = 'Access of this content is denied by the local policy.'
-                        return HTTP_REQ_REJECT
-                return HTTP_REQ_ACCEPT
+    def filterURL(self, method, url, version):
+        if (url == "http://server_disallowed.zorp/"):
+            self.error_info = 'Access of this content is denied by the local policy.'
+            return HTTP_REQ_REJECT
+        return HTTP_REQ_ACCEPT
 
 
 class FtpProxyNonTransparent(FtpProxy):
