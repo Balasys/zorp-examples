@@ -1,0 +1,14 @@
+version: 2.1
+
+jobs:
+  test:
+    docker:
+      - image: balasys/zorp-development
+    steps:
+      - checkout
+      - run: flake8 --max-line-length=120 policy.py
+
+workflows:
+  build_and_test:
+    jobs:
+      - test
