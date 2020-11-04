@@ -420,7 +420,7 @@ class HttpProxyStackTr(HttpProxy):
         if 'compress' in lst_value:
             lst_value.remove('compress')
         self.current_header_value = ','.join(lst_value)
-        
+
         return HTTP_HDR_ACCEPT
 
 
