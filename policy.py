@@ -153,7 +153,7 @@ class SmtpProxyStartTls(SmtpProxy):
         self.relay_zones = ("*",)
         self.ssl.client_connection_security = SSL_ACCEPT_STARTTLS
         self.ssl.client_verify_type = SSL_VERIFY_OPTIONAL_UNTRUSTED
-        self.ssl.client_keypair_files  = (
+        self.ssl.client_keypair_files = (
             "/etc/ssl/certs/ssl-cert-snakeoil.pem",
             "/etc/ssl/private/ssl-cert-snakeoil.key"
         )
