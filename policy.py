@@ -197,7 +197,7 @@ class HttpsProxyKeybridge(HttpProxy):
 
 
 def zorp_instance():
-    #http services
+    # http services
     Service(
         name='service_http_transparent',
         proxy_class=HttpProxy,
@@ -224,21 +224,21 @@ def zorp_instance():
         router=InbandRouter(forge_port=TRUE)
     )
 
-    #plug service
+    # plug service
     Service(
         name="service_plug",
         proxy_class=PlugProxy,
         router=TransparentRouter()
     )
 
-    #https services
+    # https services
     Service(
         name="service_https_transparent",
         proxy_class=HttpsProxyKeybridge,
         router=TransparentRouter()
     )
 
-    #ftp services
+    # ftp services
     Service(
         name="service_ftp_transparent",
         proxy_class=FtpProxyRO,
@@ -250,7 +250,7 @@ def zorp_instance():
         router=InbandRouter(forge_port=TRUE)
     )
 
-    #smtp services
+    # smtp services
     Service(
         name="service_smtp_transparent",
         proxy_class=SmtpProxy,
