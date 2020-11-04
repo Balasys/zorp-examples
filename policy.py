@@ -133,16 +133,16 @@ class HttpProxyUrlFilter(HttpProxy):
 class FtpProxyNonTransparent(FtpProxy):
     def config(self):
         FtpProxy.config(self)
-        self.transparent_mode=FALSE
+        self.transparent_mode = FALSE
 
 
 class SmtpProxyStartTls(SmtpProxy):
     def config(self):
         SmtpProxy.config(self)
-        self.relay_zones=("*",)
+        self.relay_zones = ("*",)
         self.ssl.client_connection_security = SSL_ACCEPT_STARTTLS
         self.ssl.client_verify_type = SSL_VERIFY_OPTIONAL_UNTRUSTED
-        self.ssl.client_keypair_files=(
+        self.ssl.client_keypair_files  = (
                            "/etc/ssl/certs/ssl-cert-snakeoil.pem",
                            "/etc/ssl/private/ssl-cert-snakeoil.key"
                                               )
@@ -152,13 +152,13 @@ class SmtpProxyStartTls(SmtpProxy):
 class SmtpProxyOneSideSsl(SmtpProxy):
     def config(self):
         SmtpProxy.config(self)
-        self.relay_zones=("*",)
-        self.ssl.server_connection_security=SSL_FORCE_SSL
-        self.ssl.server_verify_type=SSL_VERIFY_OPTIONAL_UNTRUSTED
+        self.relay_zones = ("*",)
+        self.ssl.server_connection_security = SSL_FORCE_SSL
+        self.ssl.server_verify_type = SSL_VERIFY_OPTIONAL_UNTRUSTED
 
 
 class HttpsProxyKeybridge(HttpProxy):
-    key_generator=X509KeyBridge(
+    key_generator = X509KeyBridge(
         key_file="/etc/zorp/keybridge/key.pem",
         cache_directory="/var/lib/zorp/keybridge-cache",
         trusted_ca_files=(
@@ -173,16 +173,16 @@ class HttpsProxyKeybridge(HttpProxy):
 
     def config(self):
         HttpProxy.config(self)
-        self.require_host_header=FALSE
-        self.ssl.handshake_seq=SSL_HSO_SERVER_CLIENT
+        self.require_host_header = FALSE
+        self.ssl.handshake_seq = SSL_HSO_SERVER_CLIENT
         self.ssl.key_generator = self.key_generator
-        self.ssl.client_keypair_generate=TRUE
-        self.ssl.client_connection_security=SSL_FORCE_SSL
-        self.ssl.client_verify_type=SSL_VERIFY_OPTIONAL_UNTRUSTED
-        self.ssl.server_connection_security=SSL_FORCE_SSL
-        self.ssl.server_verify_type=SSL_VERIFY_REQUIRED_UNTRUSTED
-        self.ssl.server_ca_directory="/etc/ssl/certs"
-        self.ssl.server_trusted_certs_directory="/etc/zorp/certs"
+        self.ssl.client_keypair_generate = TRUE
+        self.ssl.client_connection_security = SSL_FORCE_SSL
+        self.ssl.client_verify_type = SSL_VERIFY_OPTIONAL_UNTRUSTED
+        self.ssl.server_connection_security = SSL_FORCE_SSL
+        self.ssl.server_verify_type = SSL_VERIFY_REQUIRED_UNTRUSTED
+        self.ssl.server_ca_directory = "/etc/ssl/certs"
+        self.ssl.server_trusted_certs_directory = "/etc/zorp/certs"
 
 
 def zorp_instance():
@@ -384,7 +384,7 @@ class HttpProxyStackTr(HttpProxy):
 class FtpProxyStackClamav(FtpProxy):
     def config(self):
         FtpProxy.config(self)
-        self.request_stack["RETR"]=(FTP_STK_DATA, (Z_STACK_PROGRAM, '/etc/zorp/scripts/clamav_stack.py'))
+        self.request_stack["RETR"] = (FTP_STK_DATA, (Z_STACK_PROGRAM, '/etc/zorp/scripts/clamav_stack.py'))
 
 
 def stack_instance():
