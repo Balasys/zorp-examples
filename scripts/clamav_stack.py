@@ -5,6 +5,7 @@ import syslog
 import tempfile
 import pyclamd
 
+
 def copy_file(fd_in, fd_out):
     while True:
         copy_buffer = os.read(fd_in, 1024)
@@ -12,6 +13,8 @@ def copy_file(fd_in, fd_out):
             os.write(fd_out, copy_buffer)
         else:
             break
+
+
 def scan_input():
     try:
         (tmp_file, tmp_file_name) = tempfile.mkstemp()
@@ -30,6 +33,7 @@ def scan_input():
         return (None, None, None)
 
     return (tmp_file, tmp_file_name, found_virus)
+
 
 def main():
     syslog.openlog('clamav_stack')

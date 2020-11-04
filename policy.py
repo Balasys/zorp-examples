@@ -25,17 +25,20 @@ from Zorp.Http import *
 from Zorp.Pop3 import *
 from Zorp.Smtp import *
 
+
 InetZone(name="clients",
          addrs=["172.16.10.0/23", ],
          inbound_services=["*"],
          outbound_services=["*"]
         )
 
+
 InetZone(name="servers",
          addrs=["172.16.20.0/23", ],
          inbound_services=["*"],
          outbound_services=["*"]
         )
+
 
 InetZone(name="servers.audit",
          addrs=["172.16.21.1/32", ],
@@ -44,12 +47,14 @@ InetZone(name="servers.audit",
          admin_parent="servers"
         )
 
+
 InetZone(name="servers.stack_clamav",
          addrs=["172.16.21.5/32", ],
          inbound_services=["*"],
          outbound_services=["*"],
          admin_parent="servers"
         )
+
 
 InetZone(name="servers.smtp_starttls",
          addrs=["172.16.21.9/32", ],
@@ -58,12 +63,14 @@ InetZone(name="servers.smtp_starttls",
          admin_parent="servers"
         )
 
+
 InetZone(name="servers.smtp_one_sided_ssl",
          addrs=["172.16.21.13/32", ],
          inbound_services=["*"],
          outbound_services=["*"],
          admin_parent="servers"
         )
+
 
 InetZone(name="servers.http_stack_cat",
          addrs=["172.16.21.17/32", ],
@@ -72,12 +79,14 @@ InetZone(name="servers.http_stack_cat",
          admin_parent="servers"
         )
 
+
 InetZone(name="servers.http_stack_tr",
          addrs=["172.16.21.21/32", ],
          inbound_services=["*"],
          outbound_services=["*"],
          admin_parent="servers"
         )
+
 
 InetZone(name="servers.http_header_replace",
          addrs=["172.16.21.25/32", ],
@@ -86,12 +95,14 @@ InetZone(name="servers.http_header_replace",
          admin_parent="servers"
         )
 
+
 InetZone(name="servers.http_url_filter",
          addrs=["172.16.21.29/32", ],
          inbound_services=["*"],
          outbound_services=["*"],
          admin_parent="servers"
         )
+
 
 InetZone(name="servers.plug",
          addrs=["172.16.21.33/32", ],
@@ -100,10 +111,12 @@ InetZone(name="servers.plug",
          admin_parent="servers"
         )
 
+
 class HttpProxyHeaderReplace(HttpProxy):
     def config(self):
         HttpProxy.config(self)
         self.request_header["User-Agent"] = (HTTP_HDR_CHANGE_VALUE, "Forged Browser 1.0")
+
 
 class HttpProxyUrlFilter(HttpProxy):
         def config(self):
@@ -116,10 +129,12 @@ class HttpProxyUrlFilter(HttpProxy):
                         return HTTP_REQ_REJECT
                 return HTTP_REQ_ACCEPT
 
+
 class FtpProxyNonTransparent(FtpProxy):
     def config(self):
         FtpProxy.config(self)
         self.transparent_mode=FALSE
+
 
 class SmtpProxyStartTls(SmtpProxy):
     def config(self):
@@ -133,12 +148,14 @@ class SmtpProxyStartTls(SmtpProxy):
                                               )
         self.ssl.server_verify_type = SSL_VERIFY_OPTIONAL_UNTRUSTED
 
+
 class SmtpProxyOneSideSsl(SmtpProxy):
     def config(self):
         SmtpProxy.config(self)
         self.relay_zones=("*",)
         self.ssl.server_connection_security=SSL_FORCE_SSL
         self.ssl.server_verify_type=SSL_VERIFY_OPTIONAL_UNTRUSTED
+
 
 class HttpsProxyKeybridge(HttpProxy):
     key_generator=X509KeyBridge(
@@ -166,6 +183,7 @@ class HttpsProxyKeybridge(HttpProxy):
         self.ssl.server_verify_type=SSL_VERIFY_REQUIRED_UNTRUSTED
         self.ssl.server_ca_directory="/etc/ssl/certs"
         self.ssl.server_trusted_certs_directory="/etc/zorp/certs"
+
 
 def zorp_instance():
     #http services
@@ -288,6 +306,7 @@ def zorp_instance():
          dst_zone=('servers.smtp_one_sided_ssl')
     )
 
+
 def audit_instance():
     Service(name="service_ftp_transparent_audit",
         proxy_class=FtpProxy,
@@ -327,16 +346,19 @@ def audit_instance():
          dst_zone=('servers.audit', )
     )
 
+
 class HttpProxyStackClamav(HttpProxy):
     def config(self):
         HttpProxy.config(self)
         self.keep_persistent = TRUE
         self.response_stack["GET"] = (HTTP_STK_DATA, (Z_STACK_PROGRAM, '/etc/zorp/scripts/clamav_stack.py'))
 
+
 class HttpProxyStackCat(HttpProxy):
     def config(self):
         HttpProxy.config(self)
         self.response_stack["GET"] = (HTTP_STK_DATA, (Z_STACK_PROGRAM, '/bin/cat'))
+
 
 class HttpProxyStackTr(HttpProxy):
     def config(self):
@@ -358,10 +380,12 @@ class HttpProxyStackTr(HttpProxy):
         
         return HTTP_HDR_ACCEPT
 
+
 class FtpProxyStackClamav(FtpProxy):
     def config(self):
         FtpProxy.config(self)
         self.request_stack["RETR"]=(FTP_STK_DATA, (Z_STACK_PROGRAM, '/etc/zorp/scripts/clamav_stack.py'))
+
 
 def stack_instance():
     Service(name="service_http_transparent_stack_clamav",
