@@ -57,7 +57,7 @@ def main():
             syslog.syslog('No viruses were found in the content.\n')
             os.lseek(tmp_file, 0, os.SEEK_SET)
             copy_file(tmp_file, 1)
-        except OSError as e:
+        except OSError:
             syslog.syslog('No viruses were found in the content.\n')
 
     os.close(1)
