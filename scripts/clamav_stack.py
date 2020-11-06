@@ -39,7 +39,7 @@ def main():
     syslog.openlog('clamav_stack')
 
     (tmp_file, tmp_file_name, found_virus) = scan_input()
-    if found_virus or tmp_file == None:
+    if found_virus is not None or tmp_file is None:
         try:
             syslog.syslog('%s was found in the content.\n' % found_virus[tmp_file_name])
 
