@@ -44,7 +44,11 @@ def main():
             syslog.syslog('%s was found in the content.\n' % found_virus[tmp_file_name])
 
             fd = os.fdopen(3, 'w')
-            fd.write('0 SETVERDICT\n[]Verdict\nZ_REJECT\n[]Description\n%s was found in the content.\n\n' % found_virus[tmp_file_name])
+            fd.write(
+                '0 SETVERDICT\n[]Verdict\nZ_REJECT\n[]Description\n{} was found in the content.\n\n'.format(
+                    found_virus[tmp_file_name]
+                )
+            )
             fd.close()
         except OSError as e:
             syslog.syslog('Set verdict failed: \'%s\'\n' % str(e))
