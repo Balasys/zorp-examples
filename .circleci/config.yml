@@ -6,7 +6,7 @@ jobs:
       - image: balasys/zorp-development
     steps:
       - checkout
-      - run: flake8 --max-line-length=120 policy.py
+      - run: flake8 --max-line-length=120 *.py */*.py
 
 workflows:
   build_and_test:

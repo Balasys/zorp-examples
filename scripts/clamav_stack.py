@@ -18,7 +18,7 @@ def copy_file(fd_in, fd_out):
 def scan_input():
     try:
         (tmp_file, tmp_file_name) = tempfile.mkstemp()
-        os.fchmod(tmp_file, 0644)
+        os.fchmod(tmp_file, 0o644)
         copy_file(0, tmp_file)
         os.close(0)
     except OSError as e:
