@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 #
 # Copyright (c) 2011 BalaBit IT Ltd, Budapest, Hungary
+# Copyright (c) 2011-2020 BalaSys IT Ltd, Budapest, Hungary
 # Copyright (c) 2011 Szilárd Pfeiffer <szilard.pfeiffer@balabit.com>
 # Copyright (c) 2011 Tibor Balázs <tibor.balazs@balabit.com>
 #
